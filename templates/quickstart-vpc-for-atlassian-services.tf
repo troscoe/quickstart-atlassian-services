@@ -5,7 +5,7 @@ provider "aws" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = var.ExportPrefix."VPC"
+  name = join("", [var.ExportPrefix, "VPC"])
   cidr = var.VPCCIDR
 
   azs             = var.AvailabilityZones[var.region]
