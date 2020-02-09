@@ -13,7 +13,7 @@ variable "AccessCIDR" {
 
 variable "ExportPrefix" {
   type = string
-  default = "ATL-"
+  default = "ATL"
 }
 
 variable "KeyPairName" {
