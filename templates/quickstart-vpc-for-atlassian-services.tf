@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = var.region
+  region  = var.Region
 }
 
 module "vpc" {
@@ -8,7 +8,7 @@ module "vpc" {
   name = join("-", [var.ExportPrefix, "VPC"])
   cidr = var.VPCCIDR
 
-  azs             = var.AvailabilityZones[var.region]
+  azs             = var.AvailabilityZones[var.Region]
   private_subnets = var.PrivateSubnetCIDRs
   public_subnets  = var.PublicSubnetCIDRs
   
