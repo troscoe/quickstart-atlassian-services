@@ -37,6 +37,7 @@ module "bastion" {
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
 
+  name = "SSH access"
   description = "Security group allowing SSH access"
   vpc_id      = data.aws_vpc.default.id
 
