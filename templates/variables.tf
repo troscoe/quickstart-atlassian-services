@@ -5,8 +5,19 @@ variable "region" {
 variable "AccessCIDR" {
   type = string
 }
+variable "ExportPrefix" {
+  type = string
+  default = "ATL-"
+}
+variable "KeyPairName" {
+  type = string
+}
+variable "NATInstanceType" {
+  type = string
+  default = "t3.small"
+}
 variable "AvailabilityZones" {
-  type    = "map"
+  type    = map
   default = {
     "us-east-1" = ["us-east-1a", "us-east-1b"]
     "us-east-2" = ["us-east-2a", "us-east-2b"]
@@ -27,21 +38,6 @@ variable "AvailabilityZones" {
     "me-south-1" = ["me-south-1a", "me-south-1b"]
     "sa-east-1" = ["sa-east-1a", "sa-east-1b"]
   }
-}
-variable "ExportPrefix" {
-  type = string
-  default = "ATL-"
-}
-variable "KeyPairName" {
-  type = string
-}
-variable "NATInstanceType" {
-  type = string
-  default = "t3.small"
-}
-variable "AvailabilityZones" {
-  type    = list(string)
-  default = ["us-west-1a"]
 }
 variable "PrivateSubnetCIDRs" {
   type    = list(string)
