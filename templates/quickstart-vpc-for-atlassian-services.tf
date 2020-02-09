@@ -39,10 +39,10 @@ module "security_group" {
 
   name = "SSH access"
   description = "Security group allowing SSH access"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = module.vpc.id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["http-22-tcp", "all-icmp"]
+  ingress_rules       = ["ssh-22-tcp", "all-icmp"]
   egress_rules        = ["all-all"]
 }
   
