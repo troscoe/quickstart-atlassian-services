@@ -44,11 +44,11 @@ variable "AvailabilityZones" {
 }
 variable "PrivateSubnetCIDRs" {
   type    = list(string)
-  default = ["10.0.0.0/19", "10.0.32.0/19"]
+  default = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 variable "PublicSubnetCIDRs" {
   type    = list(string)
-  default = ["10.0.128.0/20", "10.0.144.0/20"]
+  default = ["10.0.101.0/24", "10.0.102.0/24"]
 }
 variable "VPCCIDR" {
   type = string
