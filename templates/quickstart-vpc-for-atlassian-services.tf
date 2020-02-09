@@ -22,28 +22,47 @@ module "vpc" {
 }
 
 module "bastion" {
-  source = "terraform-aws-modules/bastion/aws"
-  bucket_name = join("-", [var.ExportPrefix, "bastion-bucket", module.vpc.id])
-  region = var.region
-  vpc_id = module.vpc.id
-  create_dns_record = "false"
-  is_lb_private = "false"
-  bastion_host_key_pair = aws_key_pair.generated_key.key_name
-  elb_subnets = var.PublicSubnetCIDRs
-  auto_scaling_group_subnets = var.PublicSubnetCIDRs
-}
+  source = "terraform-aws-modules/ec2-instance/aws"
 
-resource "aws_s3_bucket" "bastion" {
-  bucket = join("-", [var.ExportPrefix, "bastion-bucket", module.vpc.id])
-  acl    = "private"
-}
+  instance_count = 1
 
-resource "tls_private_key" "example" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  name          = "Bastion for Atlassian Product VPC"
+  ami           = data.aws_ami.amazon_linux.id
+  instance_type = "t3.micro"
+  subnet_id     = module.vpc.public_subnets
+  vpc_security_group_ids      = [module.security_group.this_security_group_id]
+  associate_public_ip_address = true
 }
+  
+module "security_group" {
+  source  = "terraform-aws-modules/security-group/aws"
 
-resource "aws_key_pair" "generated_key" {
-  key_name   = join("-", [var.ExportPrefix, "bastion-key", module.vpc.id])
-  public_key = tls_private_key.example.public_key_openssh
+  description = "Security group allowing SSH access"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["http-22-tcp", "all-icmp"]
+  egress_rules        = ["all-all"]
+}
+  
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+
+  owners = ["amazon"]
+
+  filter {
+    name = "name"
+
+    values = [
+      "amzn-ami-hvm-*-x86_64-gp2",
+    ]
+  }
+
+  filter {
+    name = "owner-alias"
+
+    values = [
+      "amazon",
+    ]
+  }
 }
