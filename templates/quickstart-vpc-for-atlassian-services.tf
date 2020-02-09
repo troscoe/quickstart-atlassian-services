@@ -8,7 +8,7 @@ module "vpc" {
   name = var.StackName
   cidr = var.VPCCIDR
 
-  azs             = var.AvailabilityZones[var.region]
+  azs             = ["ca-central-1a", "ca-central-1b"]
   private_subnets = var.PrivateSubnetCIDRs
   public_subnets  = var.PrivateSubnetCIDRs
   
