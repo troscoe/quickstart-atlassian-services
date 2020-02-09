@@ -39,7 +39,7 @@ module "security_group" {
 
   name = "SSH access"
   description = "Security group allowing SSH access"
-  vpc_id      = module.vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["ssh-22-tcp", "all-icmp"]
