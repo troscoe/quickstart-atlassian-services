@@ -1,8 +1,4 @@
-variable "StackName" {
-  type = string
-}
-
-variable "region" {
+variable "Region" {
   type = string
   default = "us-west-2"
 }
