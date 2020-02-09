@@ -1,6 +1,11 @@
+variable "region" {
+  default = "us-east-1"
+}
+
 provider "aws" {
   region = var.region
 }
+
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
