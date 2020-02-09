@@ -1,24 +1,25 @@
 variable "StackName" {
   type = string
 }
+
 variable "region" {
   type = string
   default = "us-west-2"
 }
+
 variable "AccessCIDR" {
   type = string
 }
+
 variable "ExportPrefix" {
   type = string
   default = "ATL-"
 }
+
 variable "KeyPairName" {
   type = string
 }
-variable "NATInstanceType" {
-  type = string
-  default = "t3.small"
-}
+
 variable "AvailabilityZones" {
   type    = map
   default = {
@@ -42,14 +43,17 @@ variable "AvailabilityZones" {
     "sa-east-1" = ["sa-east-1a", "sa-east-1b"]
   }
 }
+
 variable "PrivateSubnetCIDRs" {
   type    = list(string)
   default = ["10.0.0.0/19", "10.0.32.0/19"]
 }
+
 variable "PublicSubnetCIDRs" {
   type    = list(string)
   default = ["10.0.128.0/20", "10.0.144.0/20"]
 }
+
 variable "VPCCIDR" {
   type = string
   default = "10.0.0.0/16"
