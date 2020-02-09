@@ -5,7 +5,7 @@ provider "aws" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = join("", [var.ExportPrefix, "VPC"])
+  name = join("-", [var.ExportPrefix, "VPC"])
   cidr = var.VPCCIDR
 
   azs             = var.AvailabilityZones[var.region]
@@ -45,5 +45,5 @@ resource "tls_private_key" "example" {
 
 resource "aws_key_pair" "generated_key" {
   key_name   = join("-", [var.ExportPrefix, "bastion-key", module.vpc.id])
-  public_key = "tls_private_key.example.public_key_openssh
+  public_key = tls_private_key.example.public_key_openssh
 }
