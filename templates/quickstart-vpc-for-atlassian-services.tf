@@ -8,9 +8,9 @@ module "vpc" {
   name = var.StackName
   cidr = var.VPCCIDR
 
-  azs             = ["ca-central-1a", "ca-central-1b"]
+  azs             = var.AvailabilityZones[var.region]
   private_subnets = var.PrivateSubnetCIDRs
-  public_subnets  = var.PrivateSubnetCIDRs
+  public_subnets  = var.PublicSubnetCIDRs
   
   enable_nat_gateway = true
   single_nat_gateway = false
